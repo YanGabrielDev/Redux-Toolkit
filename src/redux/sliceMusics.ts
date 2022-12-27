@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-interface Musics{
+export interface Musics{
     name: string,
     favorite: boolean
 }
