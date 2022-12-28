@@ -1,33 +1,32 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createNoSubstitutionTemplateLiteral } from "typescript";
 import "./App.css";
 import { AddItem } from "./components/AddItem";
 import { List } from "./components/ListMusic";
-import { addMusic, deleteMusic, favMusic, useMusic } from "./redux/sliceMusics";
+import { useCount, increment } from "./redux/sliceCout";
+import { Counter } from "./components/Count";
 
 function App() {
-  const [inputValue, setInputValue] = useState<string>("");
-  const musics = useSelector(useMusic);
+  const Count = useSelector(useCount);
   const dispatch = useDispatch();
+  const [count, setCount] = useState<number>(0);
 
+  const plus = async () => {
+    await setCount(count + 1);
+    await dispatch(increment(count));
+    localStorage.setItem("count", JSON.stringify(count));
+  };
+  const saveCount = localStorage.getItem("count");
   return (
     <div>
       <List />
-      <AddItem
-        inputValue={inputValue}
-        // setInputValue={setInputValue}
-        onAdd={dispatch(addMusic(inputValue))}
+      <AddItem />
+      <Counter
+        count={Count.count}
+        countState={count}
+        dispatch={dispatch}
+        setCount={setCount}
       />
-      {/* <div>
-        <input
-          onChange={(e) => setInputValue(e.target.value)}
-          value={inputValue}
-        />
-        <button onClick={() => dispatch(addMusic(inputValue))}>
-          Adicionar música
-        </button>
-      </div> */}
     </div>
   );
 }

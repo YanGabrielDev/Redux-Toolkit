@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteMusic, favMusic, useMusic } from "../../redux/sliceMusics";
 
@@ -12,6 +12,7 @@ export interface List {
 export const List = () => {
   const musics = useSelector(useMusic);
   const dispatch = useDispatch();
+  const saveMusic = localStorage.getItem("music");
   return (
     <div>
       {musics.map((music, index) => {
